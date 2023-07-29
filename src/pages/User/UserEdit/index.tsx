@@ -13,12 +13,12 @@ import {
 } from 'antd';
 import React, {useEffect, useState} from 'react';
 import {
-  getCreditByUserIdUsingGET,
-  getUserVOByIdUsingGET,
-  updateMyUserUsingPOST
-} from "@/services/ma_dou/userController";
-import {signCreditUsingGET} from "@/services/ma_dou/creditController";
-import {payUsingGET} from "@/services/ma_dou/aliPayController";
+  getCreditByUserId,
+  getUserVOById, updateMyUser, updateUser
+
+} from "@/services/user/userController";
+import {signCredit} from "@/services/user/creditController";
+import {} from "@/services/user/aliPayController";
 import {request} from "@/app";
 
 
@@ -27,11 +27,12 @@ const UserEdit: React.FC = () => {
   const {currentUser} = initialState ?? {};
   const [userInfo, setUserInfo] = useState<API.UserVO>();
   const [creditInfo, setCreditInfo] = useState<number>();
-  const [amountInfo, setAmountInfo] = useState<number>();
+  const [amountInfo, setAmountInfo] = useState<number>(5);
   const initUserParams = {
     id: currentUser?.id
   };
-  const [userInfoParams, setUserInfoParams] = useState<API.getUserVOByIdUsingGETParams>({...initUserParams});
+  // @ts-ignore
+  const [userInfoParams, setUserInfoParams] = useState<API.getUserVOByIdParams>({...initUserParams});
   const [submitting, setSubmitting] = useState<boolean>(false);
 
   const userInit = {
@@ -43,17 +44,16 @@ const UserEdit: React.FC = () => {
    */
   const loadData = async () => {
     try {
-      const res = await getUserVOByIdUsingGET(userInfoParams);
+      const res = await getUserVOById(userInfoParams);
       creditTotal();
       if (res.data) {
         console.log("res", res.data)
         setUserInfo(res.data ?? userInit)
-        console.log("user d", userInfo)
       } else {
         message.error('获取我的信息失败');
       }
     } catch (e: any) {
-      message.error('获取我的信息失败，' + e.message);
+      message.error('获取我的信息失败，' +e.response.data.message);
     }
   };
 
@@ -62,7 +62,7 @@ const UserEdit: React.FC = () => {
    */
   const creditTotal = async () => {
     try {
-      const res = await getCreditByUserIdUsingGET();
+      const res = await getCreditByUserId();
       if (res.data) {
         console.log("res", res.data)
         setCreditInfo(res.data ?? 0)
@@ -71,7 +71,7 @@ const UserEdit: React.FC = () => {
         message.error('获取我的积分失败');
       }
     } catch (e: any) {
-      message.error('获取我的积分失败，' + e.message);
+      message.error('获取我的积分失败，' +e.response.data.message);
     }
   };
 
@@ -96,7 +96,7 @@ const UserEdit: React.FC = () => {
       file: undefined,
     };
     try {
-      const res = await updateMyUserUsingPOST(params);
+      const res = await updateMyUser(params);
       if (!res?.data) {
         message.error('更新失败');
       } else {
@@ -104,7 +104,7 @@ const UserEdit: React.FC = () => {
         console.log(res.data)
       }
     } catch (e: any) {
-      message.error('分析失败，' + e.message);
+      message.error('分析失败，' +e.response.data.message);
     }
     setSubmitting(false);
   };
@@ -117,7 +117,7 @@ const UserEdit: React.FC = () => {
 
     setSubmitting(true);
     try {
-      const res = await signCreditUsingGET();
+      const res = await signCredit();
       if (!res?.data) {
         message.error('签到失败，今天已签到');
       } else {
@@ -125,7 +125,7 @@ const UserEdit: React.FC = () => {
         console.log(res.data)
       }
     } catch (e: any) {
-      message.error('签到失败，' + e.message);
+      message.error('签到失败，' +e.response.data.message);
     }
     setSubmitting(false);
   };
@@ -150,7 +150,7 @@ const UserEdit: React.FC = () => {
       message.error('请输入正确金额');
       return
     }
-    window.open(request.baseURL+"/api/alipay/pay?subject=充值积分&totalAmount="+amountInfo)
+    window.open(request.baseURL+"/userApi/alipay/pay?subject=充值积分&totalAmount="+amountInfo)
     setSubmitting(false);
   };
   // @ts-ignore

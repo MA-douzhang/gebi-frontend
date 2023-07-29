@@ -3,13 +3,9 @@ import {Avatar, Button, Card, List, message, Result, Space} from 'antd';
 import ReactECharts from 'echarts-for-react';
 import React, { useEffect, useState } from 'react';
 import Search from "antd/es/input/Search";
-import {listMyChartByPageUsingPOST} from "@/services/ma_dou/chartController";
-import {Route, Routes} from "react-router";
+import {listMyChartByPage} from "@/services/chart/chartController";
 import {Link} from "react-router-dom";
-import Meta from "antd/es/card/Meta";
 import {RedoOutlined} from "@ant-design/icons";
-import ReactMarkdown from "react-markdown";
-import gfm from 'remark-gfm';
 
 
 /**
@@ -35,8 +31,10 @@ const MyChartPage: React.FC = () => {
   const loadData = async () => {
     setLoading(true);
     try {
-      const res = await listMyChartByPageUsingPOST(searchParams);
+      const res = await listMyChartByPage(searchParams);
       if (res.data) {
+        console.log(res)
+
         setChartList(res.data.records ?? []);
         setTotal(res.data.total ?? 0);
         // 隐藏图表的 title
@@ -54,7 +52,7 @@ const MyChartPage: React.FC = () => {
         message.error('获取我的图表失败');
       }
     } catch (e: any) {
-      message.error('获取我的图表失败，' + e.message);
+      message.error('获取我的图表失败，' +e.response.data.message);
     }
     setLoading(false);
   };

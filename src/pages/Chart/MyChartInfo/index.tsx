@@ -3,7 +3,7 @@ import {Avatar, Button, Card, Col, Input, List, message, Result, Row, Space} fro
 import ReactECharts from 'echarts-for-react';
 import React, {useEffect, useState} from 'react';
 import Search from "antd/es/input/Search";
-import {genChartAsyncAiRebuildUsingPOST, getChartVOByIdUsingGET} from "@/services/ma_dou/chartController";
+import {genChartAsyncAiRebuild, getChartVOById} from "@/services/chart/chartController";
 import {useParams} from "react-router";
 import Meta from "antd/es/card/Meta";
 import TextArea from "antd/es/input/TextArea";
@@ -28,7 +28,7 @@ const MyChartPageInfo: React.FC = () => {
       return;
     }
     try {
-      const res = await getChartVOByIdUsingGET({
+      const res = await getChartVOById({
         id: params.id,
       });
       if (res.data) {
@@ -45,7 +45,7 @@ const MyChartPageInfo: React.FC = () => {
         message.error('获取我的图表失败');
       }
     } catch (e: any) {
-      message.error('获取我的图表失败，' + e.message);
+      message.error('获取我的图表失败，' +e.response.data.message);
     }
     setLoading(false);
   };
@@ -57,7 +57,7 @@ const MyChartPageInfo: React.FC = () => {
       return;
     }
     try {
-      const res = await genChartAsyncAiRebuildUsingPOST({
+      const res = await genChartAsyncAiRebuild({
         id: params.id,
       });
       if (!res?.data) {
@@ -67,7 +67,7 @@ const MyChartPageInfo: React.FC = () => {
         history.back()
       }
     } catch (e: any) {
-      message.error('分析失败，' + e.message);
+      message.error('分析失败，' +e.response.data.message);
     }
     setLoading(false);
   };

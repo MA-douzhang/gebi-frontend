@@ -16,7 +16,7 @@ import {message, Tabs} from 'antd';
 import React, {useState} from 'react';
 import {flushSync} from 'react-dom';
 import Settings from '../../../../config/defaultSettings';
-import {getLoginUserUsingGET, userLoginUsingPOST} from "@/services/ma_dou/userController";
+import {getLoginUser, userLogin} from "@/services/user/userController";
 import {Link} from "@umijs/renderer-react";
 
 
@@ -39,7 +39,7 @@ const Login: React.FC = () => {
    * 获取登录信息
    */
   const fetchUserInfo = async () => {
-    const userInfo = await getLoginUserUsingGET();
+    const userInfo = await getLoginUser();
     if (userInfo) {
       flushSync(() => {
         setInitialState((s) => ({
@@ -52,10 +52,14 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.UserLoginRequest) => {
     try {
       // 登录
-      const res = await userLoginUsingPOST(values);
+      const res = await userLogin(values);
       if (res.code === 0) {
+        console.log("登录res",res)
         const defaultLoginSuccessMessage = '登录成功！';
         message.success(defaultLoginSuccessMessage);
+        const token = res.data.tokenValue;
+        console.log(token)
+        localStorage.setItem('Authorization',token)
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
         history.push(urlParams.get('redirect') || '/');

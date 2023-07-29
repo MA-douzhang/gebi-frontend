@@ -4,10 +4,8 @@ import TextArea from 'antd/es/input/TextArea';
 import React, { useState } from 'react';
 import ReactECharts from 'echarts-for-react';
 import {
-  genChartAiUsingPOST,
-  genChartAsyncAiMqUsingPOST,
-  genChartAsyncAiUsingPOST
-} from "@/services/ma_dou/chartController";
+  genChartAsyncAiMq,
+} from "@/services/chart/chartController";
 import {useForm} from "antd/es/form/Form";
 /**
  * 添加图表（异步）页面
@@ -33,7 +31,7 @@ const AddChartMQ: React.FC = () => {
       file: undefined,
     };
     try {
-      const res = await genChartAsyncAiMqUsingPOST(params, {}, values.file.file.originFileObj);
+      const res = await genChartAsyncAiMq(params, {}, values.file.file.originFileObj);
       if (!res?.data) {
         message.error('分析失败');
       } else {
@@ -41,7 +39,7 @@ const AddChartMQ: React.FC = () => {
         form.resetFields();
       }
     } catch (e: any) {
-      message.error('分析失败，' + e.message);
+      message.error('分析失败，' +e.response.data.message);
     }
     setSubmitting(false);
   };
@@ -58,10 +56,10 @@ const AddChartMQ: React.FC = () => {
           >
             <TextArea placeholder="请输入你的分析需求，比如：分析网站用户的增长情况" />
           </Form.Item>
-          <Form.Item name="name" label="图表名称">
+          <Form.Item name="name" label="图表名称" rules={[{ required: true, message: '图表名称不能为空' }]}>
             <Input placeholder="请输入图表名称" />
           </Form.Item>
-          <Form.Item name="chartType" label="图表类型">
+          <Form.Item name="chartType" label="图表类型" rules={[{ required: true, message: '图表类型不能为空' }]}>
             <Select
               options={[
                 { value: '折线图', label: '折线图' },
@@ -72,7 +70,7 @@ const AddChartMQ: React.FC = () => {
               ]}
             />
           </Form.Item>
-          <Form.Item name="file" label="原始数据">
+          <Form.Item name="file" label="原始数据" rules={[{ required: true, message: '分析数据不能为空' }]}>
             <Upload name="file" maxCount={1}>
               <Button icon={<UploadOutlined />}>上传 CSV 文件</Button>
             </Upload>

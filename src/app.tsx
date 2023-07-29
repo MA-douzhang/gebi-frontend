@@ -6,7 +6,7 @@ import type {RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
 import {errorConfig} from './requestConfig';
-import {getLoginUserUsingGET} from "@/services/ma_dou/userController";
+import {getLoginUser} from "@/services/user/userController";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -19,7 +19,7 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const res = await getLoginUserUsingGET();
+      const res = await getLoginUser();
       return res.data;
     } catch (error) {
       history.push(loginPath);
@@ -120,7 +120,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) => 
  * @doc https://umijs.org/docs/max/request#配置
  */
 export const request = {
-  baseURL: 'http://localhost:9094',
+  baseURL: 'http://localhost:8099',
   withCredentials: true,
   ...errorConfig,
 };

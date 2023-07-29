@@ -8,12 +8,10 @@ import rehypeRaw from 'rehype-raw'// 解析标签，支持html语法
 import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter' // 代码高亮
 import {tomorrow} from 'react-syntax-highlighter/dist/esm/styles/prism'
 import {Avatar, Button, Card, Col, message, Result, Row} from "antd";
-import {genChartAsyncAiRebuildUsingPOST, getChartVOByIdUsingGET} from "@/services/ma_dou/chartController";
 import {
-  genTextTaskAsyncAiRebuildUsingPOST,
-  getTextTaskVOByIdUsingGET,
-  updateMyTextTaskUsingPOST
-} from "@/services/ma_dou/textController";
+  genTextTaskAsyncAiRebuild,
+  getTextTaskVOById, updateMyTextTask
+} from "@/services/text/textController";
 import Meta from "antd/es/card/Meta";
 import {RedoOutlined} from "@ant-design/icons";
 import ReactECharts from "echarts-for-react";
@@ -35,7 +33,7 @@ const MyTextPageInfo: React.FC = () => {
    */
   const loadData = async () => {
     try {
-      const res = await getTextTaskVOByIdUsingGET({
+      const res = await getTextTaskVOById({
         id: params.id,
       });
       if (res.data) {
@@ -48,7 +46,7 @@ const MyTextPageInfo: React.FC = () => {
         message.error('获取我的图表失败');
       }
     } catch (e: any) {
-      message.error('获取我的图表失败，' + e.message);
+      message.error('获取我的图表失败，' +e.response.data.message);
     }
   };
   /**
@@ -62,7 +60,7 @@ const MyTextPageInfo: React.FC = () => {
    */
   const saveText = async () =>{
     try {
-      const res = await updateMyTextTaskUsingPOST({
+      const res = await updateMyTextTask({
         id: params.id,
         genTextContent: textInfo
       });
@@ -73,7 +71,7 @@ const MyTextPageInfo: React.FC = () => {
         message.error('保存失败');
       }
     } catch (e: any) {
-      message.error('保存失败，' + e.message);
+      message.error('保存失败，' +e.response.data.message);
     }
 
   }
@@ -88,7 +86,7 @@ const MyTextPageInfo: React.FC = () => {
       return;
     }
     try {
-      const res = await genTextTaskAsyncAiRebuildUsingPOST({
+      const res = await genTextTaskAsyncAiRebuild({
         id: params.id,
       });
       if (!res?.data) {
@@ -98,7 +96,7 @@ const MyTextPageInfo: React.FC = () => {
         history.back()
       }
     } catch (e: any) {
-      message.error('分析失败，' + e.message);
+      message.error('分析失败，' +e.response.data.message);
     }
     setLoading(false);
   };

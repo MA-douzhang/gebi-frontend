@@ -17,7 +17,7 @@ import { Helmet, history, useModel } from '@umijs/max';
 import { Alert, message, Tabs } from 'antd';
 import React, { useState } from 'react';
 import Settings from '../../../../config/defaultSettings';
-import {userRegisterUsingPOST} from "@/services/ma_dou/userController";
+import {userRegister} from "@/services/user/userController";
 import {inspect} from "util";
 
 // @ts-ignore
@@ -46,7 +46,7 @@ const Register: React.FC = () => {
     }
     try {
       // 注册
-      const res = await userRegisterUsingPOST({
+      const res = await userRegister({
         ...values
       });
       if (res.code === 0) {

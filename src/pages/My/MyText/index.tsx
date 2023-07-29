@@ -2,7 +2,7 @@ import { useModel } from '@@/exports';
 import {Avatar, Button, Card, List, message, Result, Space} from 'antd';
 import React, { useEffect, useState } from 'react';
 import Search from "antd/es/input/Search";
-import {listMyTextTaskByPageUsingPOST} from "@/services/ma_dou/textController";
+import {listMyTextTaskByPage} from "@/services/text/textController";
 import {Link} from "react-router-dom";
 import {RedoOutlined} from "@ant-design/icons";
 
@@ -30,7 +30,7 @@ const MyTextPage: React.FC = () => {
   const loadData = async () => {
     setLoading(true);
     try {
-      const res = await listMyTextTaskByPageUsingPOST(searchParams);
+      const res = await listMyTextTaskByPage(searchParams);
       if (res.data) {
         setTextList(res.data.records ?? []);
         setTotal(res.data.total ?? 0);
@@ -39,7 +39,7 @@ const MyTextPage: React.FC = () => {
         message.error('获取我的文本失败');
       }
     } catch (e: any) {
-      message.error('获取我的文本失败，' + e.message);
+      message.error('获取我的文本失败，' +e.response.data.message);
     }
     setLoading(false);
   };

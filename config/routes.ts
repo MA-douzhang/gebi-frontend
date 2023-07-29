@@ -2,8 +2,6 @@
   {path: '/chart', name: '智能分析图表', icon: 'pieChart',
     hideChildrenInMenu: false,
     routes: [
-      {path: '/chart/add', name: '分析图表(同步)', component: './Chart/AddChart'},
-      {path: '/chart/add_async', name: '分析图表(异步)', component: './Chart/AddChartAsync'},
       {path: '/chart/add_mq', name: '分析图表(队列)', component: './Chart/AddChartMQ'},
       {path: '/chart/info/:id',component: './Chart/MyChartInfo'},
     ]},
