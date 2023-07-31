@@ -1,57 +1,53 @@
-# 智能 BI
+# GeBI-Cloud 前端
+***
+GeBI-Cloud项目的前端源码，主要是用于总结学习微服务的知识和利用AI实现更便捷的功能。
 
-This project is initialized with [智能 BI](https://pro.ant.design). Follow is the quick guide for how to use.
+后端功能主要分为，三个服务模块，gebi-user（用户服务），gebi-chart（图表服务），gebi-text（文本服务）。
 
-## Environment Prepare
+后端端源码已经开源GeBI-front-cloud，[后端源码项目](https://github.com/MA-douzhang/gebi-backend/tree/dev-cloud)
 
-Install `node_modules`:
+后端源码GeBi前端源码，在分支中master可以查看
+## 技术栈
+***
+框架：React + Ant design pro
 
-```bash
-npm install
-```
+插件：react-markdown
 
-or
+# 服务器部署
+1. 使用服务器配置为1核2G
+2. 宝塔面板
 
-```bash
-yarn
-```
 
-## Provided Scripts
+## GeBI的后端源码
+***
+GeBi-front 前端源码，[前端源码项目](https://github.com/MA-douzhang/gebi-frontend/tree/dev-cloud)
 
-智能 BI provides some useful script to help you quick start and build with web project, code style check and test.
+## 说明
+***
+>如果对您有帮助，您可以右上角点一个“start”支持一下，👍
+>
+> 如有问题请直接在 Issues 中提，或者您发现问题并有非常好的解决方案，欢迎 PR 👍
 
-Scripts provided in `package.json`. It's safe to modify or add additional script:
+# 效果展示
+***
+[查看在线展示]()
 
-### Start project
+## 功能
+***
++ [x] 登录注册功能
++ [x] 消息队列保证服务的健壮性
++ [x] 支付模块
++ [x] AI将文本格式转换
++ [x] AI将表格转为可视化
 
-```bash
-npm start
-```
+~~给开发者打钱的支付功能~~
 
-### Build project
 
-```bash
-npm run build
-```
+# 总结
+***
+1. 将Spring Boot项目重构成Spring Cloud项目，利用微服务将多个模块解耦合，保证服务的稳定性，
+   当有一个服务出错时也不会影响其它服务进行。
+2. 消息队列使用死信队列，保证当AI服务偶尔出错时，能够重新放回队列继续服务，提高服务稳定性，当超过1min还未成功就放入死信队列。
+3. 将多个服务解耦合后，在后续项目扩展中可以更加便捷得增加模块且不影响原来的项目框架。
 
-### Check code style
 
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
