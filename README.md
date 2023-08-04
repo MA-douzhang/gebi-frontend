@@ -1,12 +1,20 @@
 # GeBI 前端
 ***
+开源地址
+
+[微服务框架前端代码](https://github.com/MA-douzhang/gebi-frontend/tree/dev-cloud)
+
+[微服务框架后端代码](https://github.com/MA-douzhang/gebi-backend/tree/dev-cloud)
+
+[SpringBoot框架前端代码](https://github.com/MA-douzhang/gebi-frontend)
+
+[SpringBoot框架后端代码](https://github.com/MA-douzhang/gebi-backend)
+
+***
 GeBI项目的前端源码，主要是用于总结学习微服务的知识和利用AI实现更便捷的功能。
 
 后端功能主要分为，三个服务，gebi-user（用户服务），gebi-chart（图表服务），gebi-text（文本服务）。
 
-后端端源码已经开源GeBI-front，[后端源码项目](https://github.com/MA-douzhang/gebi-backend)
-
-后端源码GeBi-Cloud前端源码，在分支中dev-cloud可以查看
 ## 技术栈
 ***
 框架：React + Ant design pro
@@ -14,13 +22,9 @@ GeBI项目的前端源码，主要是用于总结学习微服务的知识和利�
 插件：react-markdown
 
 # 服务器部署
-1. 使用服务器配置为1核2G
+1. 使用服务器配置为2核4G
 2. 宝塔面板
 
-
-## GeBI的后端源码
-***
-GeBi 后端源码，[后端源码项目](https://github.com/MA-douzhang/gebi-backend)
 
 ## 说明
 ***
