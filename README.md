@@ -1,12 +1,20 @@
 # GeBI-Cloud 前端
 ***
+开源地址
+
+[微服务框架前端代码](https://github.com/MA-douzhang/gebi-frontend/tree/dev-cloud)
+
+[微服务框架后端代码](https://github.com/MA-douzhang/gebi-backend/tree/dev-cloud)
+
+[SpringBoot框架前端代码](https://github.com/MA-douzhang/gebi-frontend)
+
+[SpringBoot框架后端代码](https://github.com/MA-douzhang/gebi-backend)
+
+***
 GeBI-Cloud项目的前端源码，主要是用于总结学习微服务的知识和利用AI实现更便捷的功能。
 
 后端功能主要分为，三个服务模块，gebi-user（用户服务），gebi-chart（图表服务），gebi-text（文本服务）。
 
-后端端源码已经开源GeBI-front-cloud，[后端源码项目](https://github.com/MA-douzhang/gebi-backend/tree/dev-cloud)
-
-后端源码GeBi前端源码，在分支中master可以查看
 ## 技术栈
 ***
 框架：React + Ant design pro
@@ -14,13 +22,9 @@ GeBI-Cloud项目的前端源码，主要是用于总结学习微服务的知识�
 插件：react-markdown
 
 # 服务器部署
-1. 使用服务器配置为1核2G
+1. 使用服务器配置为2核4G
 2. 宝塔面板
-
-
-## GeBI的后端源码
-***
-GeBi-front 前端源码，[前端源码项目](https://github.com/MA-douzhang/gebi-frontend/tree/dev-cloud)
+3. 详细步骤和思路笔记在项目doc目录下
 
 ## 说明
 ***
@@ -35,10 +39,13 @@ GeBi-front 前端源码，[前端源码项目](https://github.com/MA-douzhang/ge
 ## 功能
 ***
 + [x] 登录注册功能
++ [X] 分布式用户验证
++ [X] 网关鉴权
 + [x] 消息队列保证服务的健壮性
 + [x] 支付模块
 + [x] AI将文本格式转换
 + [x] AI将表格转为可视化
+
 
 ~~给开发者打钱的支付功能~~
 

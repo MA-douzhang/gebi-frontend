@@ -21,7 +21,23 @@ export default {
   //     changeOrigin: true,
   //   },
   // },
-
+  // build: {
+  //   '/userApi': {
+  //     'target': 'http://139.155.130.108:8099/',
+  //     'changeOrigin': true,
+  //     'pathRewrite': { '^/userApi' : '/userApi' },
+  //   },
+  //   '/chartApi': {
+  //     'target': 'http://139.155.130.108:8099/',
+  //     'changeOrigin': true,
+  //     'pathRewrite': { '^/chartApi' : '/chartApi' },
+  //   },
+  //   '/textApi': {
+  //     'target': 'http://139.155.130.108:8099/',
+  //     'changeOrigin': true,
+  //     'pathRewrite': { '^/textApi' : '/textApi' },
+  //   },
+  // },
   /**
    * @name 详细的代理配置
    * @doc https://github.com/chimurai/http-proxy-middleware
